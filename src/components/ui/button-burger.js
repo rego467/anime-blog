@@ -1,10 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { CiUser } from "react-icons/ci";
-
-
-export const dynamic = 'force-dynamic'
 
 export default function ButtonBurger({children}){
   const [burger,setBurger] = useState(false)
@@ -12,10 +9,6 @@ export default function ButtonBurger({children}){
   const handleBurger = ()=>{
     setBurger(!burger)
   }
-
-  useEffect(()=>{
-    console.log("woi ini burger")
-  },[burger])
   
   return(
     <div className="relative">

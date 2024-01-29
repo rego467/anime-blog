@@ -1,9 +1,9 @@
 "use client"
 import { useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { getSearchData } from '../actions'
 import Animes from '@/components/Animes'
 import Link from 'next/link'
+
 import { inter } from '../font/font'
 import styles from "@/app/styles/component.module.css"
 import { useSearchAnime } from '@/utils/api-anime'
