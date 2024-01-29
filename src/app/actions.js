@@ -73,11 +73,11 @@ export async function createComment(newComment){
 }
 
 export const getSessionUsers = async () =>{
-  try {
-    const session = await getServerSession(authOptions)
-    return session
-  } catch (error) {
-    console.log(error)
-  }
+  const session = await getServerSession(authOptions)
+  return new Promise((resolve)=>{
+    setTimeout(()=>{
+      resolve(session)
+    },1000)
+  }) 
 }
 

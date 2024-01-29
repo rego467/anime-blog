@@ -22,7 +22,6 @@ export async function useAnime(){
   }
 }
 
-export const revalidate = 0
 export default async function Page() {
   const data = await useAnime()
   return (

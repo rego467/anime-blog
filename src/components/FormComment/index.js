@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
-const FormComment = ({ mal_id, email }) => {
+const FormComment = ({ mal_id }) => {
   const {status} = useSession()
   const router = useRouter() 
   
