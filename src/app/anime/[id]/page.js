@@ -1,18 +1,22 @@
 import Comments from "@/components/Comments"
-import { inter,tajawal } from "@/app/font/font";
+import { inter,tajawal } from "@/app/font/font"
 import ButtonAdd from "@/components/ButtonAdd"
-import FormComment from "@/components/FormComment";
-import prisma from "@/libs/prisma";
+import FormComment from "@/components/FormComment"
+import prisma from "@/libs/prisma"
 
 import styles from "@/app/styles/component.module.css"
-import Image from "next/image";
-import { useAnimeById } from "@/utils/api-anime";
-import { getSessionUsers } from "@/app/actions";
-import { getAuthSession } from "@/libs/auth-session";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
 
-export const metadata ={
-  title: "detail"
+import { useAnimeById } from "@/utils/api-anime"
+import { getSessionUsers } from "@/app/actions"
+
+export const generateMetadata = async ({params})=>{
+  const id = params.id
+  const anime = await useAnimeById(id)
+  return{
+    title: anime?.title
+  }  
 }
 
 export default async function Page ({params}) {
@@ -21,7 +25,7 @@ export default async function Page ({params}) {
   
   const mal_id = anime?.mal_id.toString() 
   const users = await getSessionUsers()
-  // const users = await getAuthSession()
+ 
   const comments = await prisma.comment.findMany({
     where:{mal_id:id},
     select: {mal_id : true, comment:true, author:true}
@@ -37,11 +41,11 @@ export default async function Page ({params}) {
       <div className='grid grid-cols-1 p-2 justify-items-center md:my-8'>
          <div className="relative w-full h-[200px] md:h-[300px] flex justify-center">
          <Image 
-          src={anime?.images.jpg.image_url}
+          src={anime?.images?.jpg?.image_url}
           priority ={true}
           width={400}
           height={100}
-          alt={anime?.title}
+          alt={anime?.synopsis}
           className='rounded-md bg-center object-cover w-[600px] shadow-xl drop-shadow-md brightness-75 flex items-center h-full'
           />
          </div>   

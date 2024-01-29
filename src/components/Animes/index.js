@@ -10,6 +10,7 @@ export default function Animes({animes}){
     <>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 p-2">
       {Array.isArray(animes) ? animes.map((item,index)=>{
+          let mal_id = String(item.mal_id)
           return(
             <div className='grid w-full p-1' key={index}>
               <div className="relative h-[170px]">
@@ -18,15 +19,14 @@ export default function Animes({animes}){
                   width={300}
                   height={100}
                   priority={true}
-                  alt={item.title}
+                  alt={item.synopsis}
                   className='rounded-md object-cover w-full shadow-xl drop-shadow-md brightness-75 flex items-center h-full'
                 />
               </div>
-              <div className={inter.variable}>
-                <Link href={`/anime/${item.mal_id.toString()}`}>
-                  <h1 className={`${styles.headingSatu}`}>{item.title}</h1>
-                </Link>
-              </div>
+              <a href={`/anime/${mal_id}`} className={inter.variable} as={`/anime/${mal_id}`}>
+                <h1 className={`${styles.headingSatu}`}>{item.title}</h1>
+              </a>
+          
             </div>
           )
         })

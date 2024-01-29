@@ -6,7 +6,9 @@ import { inter } from '../font/font';
 import { getSessionUsers } from '../actions';
 import { redirect } from 'next/navigation';
 
-
+export const metadata = {
+  title:"profile"
+}
 export default async function Profile () {
   const session= await getSessionUsers()
   if(!session){
