@@ -1,0 +1,78 @@
+.headingSatu{
+  font-family: var('--font-inter');
+  font-weight: 600;
+  margin: 10px 0;
+  font-size: 19px;
+}
+
+.headingSearch{
+  font-family: var('--font-inter');
+  font-size: 17px;
+}
+
+.headingPopuler{
+  font-family: var('--font-inter');
+  font-weight: 600;
+  font-size: 19px;
+  padding: 11px;
+}
+
+.headingLogo{
+  font-family: var('--font-kanit');
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.headingLogin{
+  font-family: var('--font-kanit');
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.listBurger{
+  font-family: var('--font-kanit');
+  font-size: 18px;
+}
+
+.headingDetail{
+  font-family: var('--font-genos');
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.paragraf{
+  font-family: var('--font-tajawal');
+  font-size: 18px;
+}
+
+.headingCollection{
+  font-family: var('--font-lato');
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.spanCollection{
+  font-family: var('--font-lato');
+  font-size: 15px;
+  margin: 4px 0;
+}
+
+.spanCollectionId{
+  font-family: var('--font-lato');
+  font-family: 14px;
+}
+
+.headingRegister{
+  font-family: var('--font-kanit');
+  font-size: 22px;
+}
+
+.spanRegister{
+  font-family: var('--font-inter');
+  font-size: 15px;
+}
+
+.register{
+  font-family: var('--font-inter');
+  font-size: 17px;
+}
