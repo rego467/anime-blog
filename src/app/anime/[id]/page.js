@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useAnimeById } from "@/utils/api-anime";
 import { getSessionUsers } from "@/app/actions";
 import { getAuthSession } from "@/libs/auth-session";
+import Link from "next/link";
 
 export const metadata ={
   title: "detail"
@@ -28,6 +29,11 @@ export default async function Page ({params}) {
 
   return (
     <div className="container m-auto min-h-screen py-5">
+      <div className={`${inter.variable} w-full my-4 inline-block md:hidden`}>
+          <Link href={"/"}>
+            <h1 className={`${styles.headingPopuler} underline`}>back to home</h1>
+          </Link> 
+        </div>
       <div className='grid grid-cols-1 p-2 justify-items-center md:my-8'>
          <div className="relative w-full h-[200px] md:h-[300px] flex justify-center">
          <Image 

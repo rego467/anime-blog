@@ -2,9 +2,6 @@
 import styles from "@/app/styles/component.module.css"
 import { inter } from "./font/font";
 import Animes from "@/components/Animes";
-
-import LoadMore from "@/components/LoadMore";
-import ButtonMore from "@/components/ui/button-more";
 import Link from "next/link";
 
 export async function useAnime(){
