@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: "Blog anime",
-  default: "Anime"
+  default: "Anime",
 } 
 
 
