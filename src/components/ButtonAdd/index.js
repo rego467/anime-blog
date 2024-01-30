@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 
 export default function ButtonAdd ({title, duration,image_url,mal_id}) {
   const {data: session, status} = useSession()
+  const id = session?.id
   const router = useRouter()
   const handleAdd = async()=>{
     if(status === "unauthenticated"){
@@ -18,7 +19,7 @@ export default function ButtonAdd ({title, duration,image_url,mal_id}) {
       image_url,
       mal_id,
     }
-    await addCollection(newAdd)
+    await addCollection(id,newAdd)
     router.push("/profile")
    } catch (error) {
     console.log(error)

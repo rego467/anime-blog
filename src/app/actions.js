@@ -3,27 +3,18 @@
 import { authOptions } from "@/libs/auth"
 import { getServerSession } from "next-auth"
 import { revalidatePath, revalidateTag, unstable_noStore as noStore } from "next/cache"
-import { cache } from 'react'
 
-export async function addCollection(newAdd){
-  const session = await getSessionUsers()
-  const id = session?.id
+export async function addCollection(id,newAdd){
   try  {
-    const response = await fetch(`http://localhost:3000/api/v1/collection/${id}`,{
+    await fetch(`http://localhost:3000/api/v1/collection/${id}`,{
       method:"POST",
       headers:{
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
       body: JSON.stringify(newAdd)
-    })
-
-    if(!response.ok){
-      console.log("eror")
-    }
-    
+    })  
     revalidatePath("/profile")
-
   } catch (error) {
    console.log(error.message)
   }
