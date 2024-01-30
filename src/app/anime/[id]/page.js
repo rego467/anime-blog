@@ -10,7 +10,6 @@ import Link from "next/link"
 
 import { useAnimeById } from "@/utils/api-anime"
 import { getSessionUsers } from "@/app/actions"
-import { useSearchParams } from "next/navigation"
 
 export const generateMetadata = async ({params})=>{
   const id = params.id
@@ -69,13 +68,7 @@ export default async function Page ({params}) {
         <div className='grid w-full mt-9'>      
           <div className={`${inter.variable} flex justify-between items-center`}>
             <h1 className={`${styles.headingSatu} underline`}>{anime?.title}</h1>
-             <ButtonAdd 
-            //  duration={anime?.duration} 
-            //  image_url={anime?.images.jpg.image_url} 
-            //  title={anime?.title} 
-            //  mal_id={mal_id}
-             hallo={hallo}
-            />
+             <ButtonAdd hallo={hallo}/>
           </div>
           <div className={`${tajawal.variable} mt-6`}>
             <p className={`${styles.paragraf} leading-relaxed whitespace-pre-line`}>

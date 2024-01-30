@@ -5,6 +5,7 @@ import prisma from '@/libs/prisma';
 import { inter } from '../font/font';
 import { getSessionUsers } from '../actions';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 export const metadata = {
   title:"profile"
@@ -22,10 +23,23 @@ export default async function Profile () {
     select:{collections: true}
   })
 
+  const buttonDeleteAnime = async(id)=>{
+    "use server"
+    const cekId = await prisma.collection.findUnique({
+      where:{id:id, authorId: session?.id}
+    })
+
+    await prisma.collection.delete({
+      where:{id:cekId.id}
+    })
+
+    revalidatePath("/profile")
+  }
+
   return (
     <div className={`${inter.variable} container m-auto min-h-screen`}>
       <div className='flex my-8'>
-        <ProfilePage collections={collection.collections}/>
+        <ProfilePage collections={collection.collections} buttonDeleteAnime={buttonDeleteAnime}/>
       </div>
     </div>
   )

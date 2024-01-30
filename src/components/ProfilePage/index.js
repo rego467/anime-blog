@@ -2,24 +2,36 @@
 
 import { MdOutlineCancel } from "react-icons/md"
 import Image from 'next/image'
-import { deleteCollection } from "@/app/actions"
 
 import { lato } from "@/app/font/font"
 import styles from "@/app/styles/component.module.css"
+import { useState } from "react"
+import Loading from "../Loading"
 
-export default function ProfilePage({collections}){
+export default function ProfilePage({collections,buttonDeleteAnime}){
+  const [loading,setLoading] = useState(false)
+  
   const getDelete = async (id)=>{
-    const cekDelete = confirm("apakah ingin hapus card ini?")
-    if(cekDelete){
-      await deleteCollection(id) 
+    setLoading(true)
+    try {
+      const cekDelete = confirm("apakah ingin hapus card ini?")
+      if(cekDelete){
+        await buttonDeleteAnime(id) 
+      }
+    } catch (error) {
+      console.log(error) 
+    }finally{
+      setLoading(false)
     }
   }
+
   return(
     <div className="container m-auto">
+      {loading && <Loading />}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full gap-2">
         {collections && collections.map((item,index)=>{
             return(
-              <div className='grid p-1 rounded-md shadow-xl drop-shadow-md brightness-75 m-2' key={index}>
+              <div className="grid p-1 rounded-md shadow-xl drop-shadow-md brightness-75 m-2" key={index}>
                 <div className='flex flex-row'>
                   <div className='relative p-1 h-20 m-auto flex justify-center items-center rounded-md bg-blue-600'>
                     <Image 
