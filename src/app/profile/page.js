@@ -9,6 +9,8 @@ import { redirect } from 'next/navigation';
 export const metadata = {
   title:"profile"
 }
+
+export const revalidate = 0
 export default async function Profile () {
   const session= await getSessionUsers()
   if(!session){
