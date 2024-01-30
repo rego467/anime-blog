@@ -9,6 +9,7 @@ export async function POST(request,{params}){
   if(comment === ""){
     return NextResponse.json({message: "input tidak boleh kosong"}, {status:400})
   }
+  
   const cekUser = await prisma.user.findUnique({
     where:{id:id}
   })

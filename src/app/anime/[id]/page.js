@@ -10,6 +10,7 @@ import Link from "next/link"
 
 import { useAnimeById } from "@/utils/api-anime"
 import { getSessionUsers } from "@/app/actions"
+import { revalidateTag } from "next/cache"
 
 export const generateMetadata = async ({params})=>{
   const id = params.id
@@ -25,6 +26,28 @@ export default async function Page ({params}) {
  
   const mal_id = anime?.mal_id.toString() 
   const users = await getSessionUsers()
+
+  const createComment = async(comment)=>{
+    "use server"
+    const cekIdUser = await prisma.user.findUnique({
+      where:{
+        id:users?.id
+      }
+    })
+
+    await prisma.comment.create({
+      data:{
+        mal_id:id,
+        comment:comment,
+        author:{
+          connect:{
+            id: cekIdUser.id
+          }
+        }
+      }
+    })
+    revalidateTag("comment")
+  }
  
   const comments = await prisma.comment.findMany({
     where:{mal_id:id},
@@ -77,7 +100,7 @@ export default async function Page ({params}) {
           </div>              
         </div>
         </>
-        <FormComment mal_id ={id} email={users?.user?.email}/>
+        <FormComment createComment={createComment} />
       </div>
       <Comments comments={comments} /> 
     </div>
