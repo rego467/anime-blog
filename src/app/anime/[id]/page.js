@@ -10,6 +10,7 @@ import Link from "next/link"
 
 import { useAnimeById } from "@/utils/api-anime"
 import { getSessionUsers } from "@/app/actions"
+import { useSearchParams } from "next/navigation"
 
 export const generateMetadata = async ({params})=>{
   const id = params.id
@@ -22,7 +23,7 @@ export const generateMetadata = async ({params})=>{
 export default async function Page ({params}) {
   const id = params.id
   const anime = await useAnimeById(id)
-  
+ 
   const mal_id = anime?.mal_id.toString() 
   const users = await getSessionUsers()
  
@@ -30,6 +31,21 @@ export default async function Page ({params}) {
     where:{mal_id:id},
     select: {mal_id : true, comment:true, author:true}
   })
+
+  const hallo = async()=>{
+    "use server"
+    return await prisma.collection.create({
+      data:{
+        title: anime?.title,
+        duration: anime?.duration,
+        image_url: anime?.images.jpg.image_url,
+        mal_id,
+        author:{
+          connect:{id: users?.id}
+        }
+      }
+    })
+  }
 
   return (
     <div className="container m-auto min-h-screen py-5">
@@ -54,10 +70,11 @@ export default async function Page ({params}) {
           <div className={`${inter.variable} flex justify-between items-center`}>
             <h1 className={`${styles.headingSatu} underline`}>{anime?.title}</h1>
              <ButtonAdd 
-             duration={anime?.duration} 
-             image_url={anime?.images.jpg.image_url} 
-             title={anime?.title} 
-             mal_id={mal_id}
+            //  duration={anime?.duration} 
+            //  image_url={anime?.images.jpg.image_url} 
+            //  title={anime?.title} 
+            //  mal_id={mal_id}
+             hallo={hallo}
             />
           </div>
           <div className={`${tajawal.variable} mt-6`}>

@@ -4,26 +4,27 @@ import { addCollection } from "@/app/actions"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
-export default function ButtonAdd ({title, duration,image_url,mal_id}) {
-  const {data: session, status} = useSession()
-  const id = session?.id
-  const router = useRouter()
+export default function ButtonAdd ({title, duration,image_url,mal_id, hallo}) {
+  // const {data: session, status} = useSession()
+  // const id = session?.id
+  // const router = useRouter()
   const handleAdd = async()=>{
-    if(status === "unauthenticated"){
-      return router.push('/register')
-    }
-    try {
-    const newAdd = {
-      title,
-      duration,
-      image_url,
-      mal_id,
-    }
-    await addCollection(id,newAdd)
-    router.push("/profile")
-   } catch (error) {
-    console.log(error)
-   }
+  //   if(status === "unauthenticated"){
+  //     return router.push('/register')
+  //   }
+  //   try {
+  //   const newAdd = {
+  //     title,
+  //     duration,
+  //     image_url,
+  //     mal_id,
+  //   }
+  //   await addCollection(id,newAdd)
+  //   router.push("/profile")
+  //  } catch (error) {
+  //   console.log(error)
+  //  }
+   await hallo()
   }
 
   return (
