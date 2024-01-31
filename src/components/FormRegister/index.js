@@ -55,7 +55,6 @@ const FormRegister = () => {
 
   return (
       <div className='flex flex-col rounded-lg border-2 p-3 w-full md:w-[500px] lg:w-[500px]'>
-        {cek && <p className='bg-red-400 text-white rounded-md font-medium w-full justify-center flex'>{cek}</p>}
         <div className={inter.variable}>
           <h1 className={`${styles.headingRegister} flex justify-center my-4 font-medium text-zinc-600`}>WELCOME TO REGISTER</h1>
         </div>
