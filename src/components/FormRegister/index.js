@@ -6,9 +6,10 @@ import React, { useState } from 'react'
 import styles from "@/app/styles/component.module.css"
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { useRouter } from 'next/navigation'
 
 const FormRegister = () => {
-  const [cek, setCek] = useState("")
+  const router = useRouter()
   const formik = useFormik({
     initialValues:{
       name:"",
@@ -27,31 +28,25 @@ const FormRegister = () => {
       // .matches(/[a-z]/g, "harus berisi setidaknya 1 huruf kecil")
     }),
     onSubmit: async(values)=>{
-     if(!process.env.NEXT_PUBLIC_BASE_URL){
-      return null
-     }
+      if(!process.env.NEXT_PUBLIC_BASE_URL){
+        return null
+      }
       try {
-        const registers ={
+        const newUsers ={
           name: values.name,
           email: values.email,
           password: values.password
-        } 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/register`,{
+        }
+        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/register`,{
           method:"POST",
           headers:{
             "Accept": "application/json",
             "Content-Type": "application/json"
           },
-          body:JSON.stringify(registers)
+          body:JSON.stringify(newUsers)
         })
 
-        const data = await response.json()
-
-        if(!response.ok){
-          return setCek(data.message)
-        }
-
-        return signIn(undefined,{callbackUrl:"/"})
+        router.push("/api/auth/signin")
       } catch (error) {
         console.log(error)
       }
