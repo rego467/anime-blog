@@ -34,7 +34,7 @@ const FormRegister = () => {
           email: values.email,
           password: values.password
         } 
-        const response = await fetch(`${process.env.NEXTAUTH_URL}api/v1/register`,{
+        const response = await fetch(`${process.env.NEXTAUTH_URL}/api/v1/register`,{
           method:"POST",
           headers:{
             "Accept": "application/json",
