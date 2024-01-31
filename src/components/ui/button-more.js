@@ -1,22 +1,22 @@
 "use client"
 
-import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import { IoIosMore } from "react-icons/io"
 
-export default function ButtonMore(){
-  const [pages,setPages] = useState(1)
-  const router = useRouter()
+export default function ButtonMore({children}){
+  const [more,setMore] = useState(false)
 
   const handleMore = ()=>{
-    let count = pages + 1
-    setPages(count)
-    router.push(`/anime?page=${pages}`)
+    setMore(!more)
   }
 
-  // useEffect(()=>{
 
-  // },[pages])
   return(
-    <button onClick={handleMore}>MORE</button>
+    <div className="relative">
+      <IoIosMore size={29} className="cursor-pointer" onClick={handleMore} />
+      <div className={`${more ? "inline-block" : "hidden"} absolute end-0 bg-zinc-600 w-20 p-1 rounded-md`}>
+        {children}
+      </div>
+    </div>
   )
 }

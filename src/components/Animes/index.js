@@ -23,7 +23,7 @@ export default function Animes({animes}){
                   className='rounded-md object-cover w-full shadow-xl drop-shadow-md brightness-75 flex items-center h-full'
                 />
               </div>
-              <a href={`/anime/${mal_id}`} className={inter.variable} as={`/anime/${mal_id}`}>
+              <a href={`/anime/${mal_id}`} className={inter.variable}>
                 <h1 className={`${styles.headingSatu}`}>{item.title}</h1>
               </a>
           

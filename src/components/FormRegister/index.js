@@ -27,7 +27,6 @@ const FormRegister = () => {
       // .matches(/[a-z]/g, "harus berisi setidaknya 1 huruf kecil")
     }),
     onSubmit: async(values)=>{
-      console.log(values,"values")
       try {
         const registers ={
           name: values.name,
@@ -62,7 +61,7 @@ const FormRegister = () => {
         <div className={inter.variable}>
           <h1 className={`${styles.headingRegister} flex justify-center my-4 font-medium text-zinc-600`}>WELCOME TO REGISTER</h1>
         </div>
-        <form className='flex flex-col gap-5 p-2 w-full'>
+        <form className='flex flex-col gap-5 p-2 w-full' onSubmit={formik.handleSubmit}>
           <input
             value={formik.values.name}
             onChange={formik.handleChange} 
@@ -89,8 +88,7 @@ const FormRegister = () => {
             </h1>  
           </div>
           
-          <button 
-            onClick={formik.handleSubmit} 
+          <button  
             type="submit" 
             className='p-1 w-[160px] ring ring-blue-500 ring-offset-1 bg-blue-500 text-white flex justify-center rounded-lg text-lg font-medium'>
               Register

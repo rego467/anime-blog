@@ -51,7 +51,7 @@ export default async function Page ({params}) {
  
   const comments = await prisma.comment.findMany({
     where:{mal_id:id},
-    select: {mal_id : true, comment:true, author:true}
+    select: {mal_id : true, comment:true, author:true, id:true}
   })
 
   const hallo = async()=>{
@@ -67,6 +67,24 @@ export default async function Page ({params}) {
         }
       }
     })
+  }
+
+  const deleteComment = async(id)=>{
+    "use server"
+    const cekIdUser = await prisma.comment.findUnique({
+      where:{
+        id:id,
+        authorId: users?.id
+      }
+    })
+
+    await prisma.comment.delete({
+      where:{
+        id: cekIdUser.id
+      }
+    })
+    
+    revalidateTag("comment")
   }
 
   return (
@@ -102,7 +120,7 @@ export default async function Page ({params}) {
         </>
         <FormComment createComment={createComment} />
       </div>
-      <Comments comments={comments} /> 
+      <Comments comments={comments} deleteComment={deleteComment} /> 
     </div>
   )
 }
