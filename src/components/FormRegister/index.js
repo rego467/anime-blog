@@ -27,13 +27,14 @@ const FormRegister = () => {
       // .matches(/[a-z]/g, "harus berisi setidaknya 1 huruf kecil")
     }),
     onSubmit: async(values)=>{
+     
       try {
         const registers ={
           name: values.name,
           email: values.email,
           password: values.password
         } 
-        const response = await fetch("http://localhost:3000/api/v1/register",{
+        const response = await fetch(`${process.env.NEXTAUTH_URL}/api/v1/register`,{
           method:"POST",
           headers:{
             "Accept": "application/json",
