@@ -10,6 +10,26 @@ import { useRouter } from 'next/navigation'
 
 const FormRegister = () => {
   const router = useRouter()
+  const [cek, setCek] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  const cekEmail = async(email)=>{
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/users`,{
+        method:"GET",
+        headers:{
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+      const data = await res.json()
+   
+      const filterEmail = data.find(item=> item.email === email)
+      return filterEmail
+    } catch (error) {
+      console.log(error)
+    }
+  }
   const formik = useFormik({
     initialValues:{
       name:"",
@@ -28,6 +48,7 @@ const FormRegister = () => {
       // .matches(/[a-z]/g, "harus berisi setidaknya 1 huruf kecil")
     }),
     onSubmit: async(values)=>{
+      setLoading(true)
       if(!process.env.NEXT_PUBLIC_BASE_URL){
         return null
       }
@@ -37,18 +58,27 @@ const FormRegister = () => {
           email: values.email,
           password: values.password
         }
-        await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/register`,{
-          method:"POST",
-          headers:{
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-          },
+        
+       const cekDulu = await cekEmail(newUsers.email)
+
+       if(cekDulu){
+        return setCek(true)
+       }
+
+      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/register`,{
+        method:"POST",
+        headers:{
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
           body:JSON.stringify(newUsers)
         })
 
         router.push("/api/auth/signin")
       } catch (error) {
         console.log(error)
+      }finally{
+        setLoading(false)
       }
     }
   })
@@ -58,6 +88,7 @@ const FormRegister = () => {
         <div className={inter.variable}>
           <h1 className={`${styles.headingRegister} flex justify-center my-4 font-medium text-zinc-600`}>WELCOME TO REGISTER</h1>
         </div>
+        {cek && <p className='text-red-500 px-3'>email sudah ada..</p>}
         <form className='flex flex-col gap-5 p-2 w-full' onSubmit={formik.handleSubmit}>
           <input
             value={formik.values.name}
@@ -87,8 +118,8 @@ const FormRegister = () => {
           
           <button  
             type="submit" 
-            className='p-1 w-[160px] ring ring-blue-500 ring-offset-1 bg-blue-500 text-white flex justify-center rounded-lg text-lg font-medium'>
-              Register
+            className='p-1 w-[160px] ring ring-blue-500 ring-offset-1 bg-blue-500 text-white flex justify-center rounded-lg text-lg font-medium items-center'>
+              Register {loading && <svg className="animate-spin h-5 w-5 ml-3 border-2 border-r-black border-b-black opacity-50 rounded-full" viewBox="0 0 24 24"></svg>}
           </button>
         </form>
       </div>

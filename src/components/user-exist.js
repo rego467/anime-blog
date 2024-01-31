@@ -2,7 +2,6 @@ import { getSessionUsers } from "@/app/actions"
 import ButtonBurger from "./ui/button-burger"
 import ListBurger from "./ui/list-burger"
 import Register from "./ui/button-register"
-import { getAuthSession } from "@/libs/auth-session"
 
 export default async function UserExist(){
   // const user = await getSessionUsers()

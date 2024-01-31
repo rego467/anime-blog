@@ -29,7 +29,7 @@ export default function ProfilePage({collections,buttonDeleteAnime}){
     <div className="container m-auto">
       {loading && <Loading />}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full gap-2">
-        {collections && collections.map((item,index)=>{
+        {Array.isArray(collections)? collections.map((item,index)=>{
             return(
               <div className="grid p-1 rounded-md shadow-xl drop-shadow-md brightness-75 m-2" key={index}>
                 <div className='flex flex-row'>
@@ -60,7 +60,7 @@ export default function ProfilePage({collections,buttonDeleteAnime}){
             </div>
           </div>
           )
-        })
+        }) : null
       }
       </div>
     </div>
