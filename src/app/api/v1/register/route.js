@@ -6,10 +6,7 @@ export async function POST(request){
     const {name, email, password} = await request.json()
     
     if(name.length < 1 ||email.length < 1 || password.length < 1){
-      return Response.json(
-        {message: "input tidak boleh kosong.."},
-        {status:400}
-      )
+      return new Response("input tidak kosong", {status:400})
     }
     
     const usersExist = await prisma.user.findUnique({
@@ -19,10 +16,7 @@ export async function POST(request){
     })
 
     if(usersExist){
-      return Response.json(
-        {message: "email sudah terdaftar"},
-        {status:400}
-      )
+      return new Response("email sudah ada", {status:404})
     }
 
     const hasPassword = await bcrypt.hash(password, 12)
@@ -34,9 +28,9 @@ export async function POST(request){
       }
     })
 
-    return Response.json({data: response})
+    return new Response("berhasil register",{status:201, data: response})
   } catch (error) {
     console.log(error.message)
-    return Response.json({message: "some went wrong"})
+    return new Response("terjadi kesalahan di server",{status:500})
   }
 }
